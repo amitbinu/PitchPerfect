@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
-
+    
+    var audioRecorder: AVAudioRecorder!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var stopRecordingButton: UIButton!
     @IBOutlet weak var recordingLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        stopRecordingButton.isEnabled = false
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -24,12 +27,17 @@ class ViewController: UIViewController {
     }
 
     @IBAction func recordAudio(_ sender: Any) {
-        print("Record Button was pressed")
         recordingLabel.text = "Recording in Progress"
+        stopRecordingButton.isEnabled = true
+        recordButton.isEnabled = false
+        
+        _ = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        _ = "userAudio.wav"
     }
     @IBAction func stopRecording(_ sender: Any) {
-        print("Stopped Recording")
-        recordingLabel.text = "Finished Recording"
+        recordingLabel.text = "Tap to Record"
+        stopRecordingButton.isEnabled = false
+        recordButton.isEnabled = true
     }
 
 }
